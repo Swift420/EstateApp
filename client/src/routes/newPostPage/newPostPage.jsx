@@ -2,14 +2,89 @@ import { useState } from "react";
 import "./newPostPage.scss";
 import  ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"
+import apiRequest from "../../lib/apiRequest";
+import UploadWidget from "../../components/uploadWidget/UploadWidget";
+import { useNavigate } from "react-router-dom";
 function NewPostPage() {
   const [value,setValue] = useState("")
+  const [error,setError] = useState("")
+  const [images,setImages] = useState([])
+  const navigate = useNavigate();
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+
+  //   {
+  //     "postData": {
+  //     "title": "title 1",
+  //     "price":11,
+  //     "images":["https://www.apartments.com/blog/sites/default/files/styles/small/public/image/2023-06/ParkLine-apartment-in-Miami-FL.jpg?itok=e9OGR_ew"],
+  //     "address": "address1",
+  //     "city": "city",
+  //     "bedroom": 2,
+  //     "bathroom": 2,
+  //     "type": "rent",
+  //     "property": "apartment",
+  //     "latitude": "51.5074",
+  //     "longitude": "-0.127"
+  // },
+  // "postDetail": {
+  //         "desc": "Desc 1",
+  //         "utilities": "Responsible owner",
+  //         "pet": "Allowed",
+  //         "income": "3x income",
+  //         "size": 80,
+  //         "school": 211,
+  //         "bus": 2,
+  //         "restaurant": 150
+      
+  //     }
+  // }
+
+    try {
+      setError("")
+      const res = await apiRequest.post("/posts",{
+        postData: {
+          title: data.title,
+          price: parseInt(data.price),
+          address: data.address,
+          city: data.city,
+          bedroom: parseInt(data.bedroom),
+          bathroom: parseInt(data.bathroom),
+          type: data.type,
+          property: data.property,
+          latitude: data.latitude,
+          longitude: data.longitude,
+          images: images
+        },
+        postDetail: {
+          desc: value,
+          utilities: data.utilities,
+          pet: data.pet,
+          income: data.income,
+          size: parseInt(data.size),
+          school: parseInt(data.school),
+          bus: parseInt(data.bus),
+          restaurant: parseInt(data.restaurant),
+
+        }
+      });
+      navigate("/"+res.data.id)
+      
+    } catch (error) {
+      console.log(error)
+      setError(error.response.data.message)
+    }
+  }
+
+
   return (
     <div className="newPostPage">
       <div className="formContainer">
         <h1>Add New Post</h1>
         <div className="wrapper">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="item">
               <label htmlFor="title">Title</label>
               <input id="title" name="title" type="text" />
@@ -105,10 +180,24 @@ function NewPostPage() {
               <input min={0} id="restaurant" name="restaurant" type="number" />
             </div>
             <button className="sendButton">Add</button>
+         {error && <span className="error">{error}</span>}
           </form>
         </div>
       </div>
-      <div className="sideContainer"></div>
+      <div className="sideContainer">
+        {images.map((image, index) => (
+          <img key={index} src={image} alt=""/>
+        ))}
+        <UploadWidget uwConfig={{
+            cloudName: "dna78s7v5",
+            uploadPreset: "estate",
+            multiple: true,
+            maxImageFileSize: 2000000,
+            folder: "posts",
+            
+          }}
+          setState={setImages}/>
+      </div>
     </div>
   );
 }
