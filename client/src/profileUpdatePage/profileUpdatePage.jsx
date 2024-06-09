@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import "./profileUpdatePage.scss";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-
+import apiRequest from '../lib/apiRequest'
 function ProfileUpdatePage() {
   const { currentUser, updateUser } = useContext(AuthContext);
   const [error, setError] = useState("");
@@ -11,24 +11,25 @@ function ProfileUpdatePage() {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    // e.preventDefault();
-    // const formData = new FormData(e.target);
+    e.preventDefault();
+    const formData = new FormData(e.target);
 
-    // const { username, email, password } = Object.fromEntries(formData);
+    const { username, email, password } = Object.fromEntries(formData);
 
-    // try {
-    //   const res = await apiRequest.put(`/users/${currentUser.id}`, {
-    //     username,
-    //     email,
-    //     password,
-    //     avatar:avatar[0]
-    //   });
-    //   updateUser(res.data);
-    //   navigate("/profile");
-    // } catch (err) {
-    //   console.log(err);
-    //   setError(err.response.data.message);
-    // }
+    try {
+      setError("");
+      const res = await apiRequest.put(`/users/${currentUser.id}`, {
+        username,
+        email,
+        password,
+        avatar:avatar[0]
+      });
+      updateUser(res.data);
+      navigate("/profile");
+    } catch (err) {
+      console.log(err);
+      setError(err.response.data.message);
+    }
   };
 
   return (
