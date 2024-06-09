@@ -1,22 +1,16 @@
 import express from 'express';
-
+import {verifyToken} from '../middleware/verifyToken.js'
+import { addPosts, deletePost, getPost, getPosts, updatePost } from '../controllers/post_controller.js';
 const postRouter = express.Router();
 
-postRouter.get('/', (req, res) => {
-    res.send('Hello World');
-});
+postRouter.get('/', getPosts);
+postRouter.get('/:id', getPost);
 
-postRouter.post('/', (req, res) => {
-    res.send('Hello World');
-});
+postRouter.post('/',verifyToken, addPosts);
 
-postRouter.put('/', (req, res) => {
-    res.send('Hello World');
-});
+postRouter.put('/', verifyToken, updatePost);
 
-postRouter.delete('/', (req, res) => {
-    res.send('Hello World');
-});
+postRouter.delete('/:id', verifyToken, deletePost);
 
 
 
