@@ -1,0 +1,14 @@
+import apiRequest from "./apiRequest"
+
+export const singlePageLoader = async({request,params}) => {
+    const res = await apiRequest.get("/posts/"+params.id)
+
+    return res.data
+}
+
+export const listPageLoader = async({request,params}) => {
+        console.log(request)
+    // const res = await apiRequest.get("/posts/"+params.id)
+
+    // return res.data
+}
