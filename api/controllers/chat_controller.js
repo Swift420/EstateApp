@@ -12,6 +12,23 @@ export const getChats = async (req, res) => {
            } 
         },
         });
+
+        for (const chat of chats) {
+            const receiverId = chat.userIDs.find((id) => id !== tokenUserId);
+            const receiver = await prisma.user.findUnique({
+                where: {
+                    id: receiverId
+                },
+                select: {
+                  id: true,
+                    username: true,
+                    avatar: true
+                }
+            });
+
+
+          chat.receiver = receiver;
+        }
     res.status(200).json(chats);
   } catch (error) {
     res.status(500).json({ message: "Error fetching chats" });
