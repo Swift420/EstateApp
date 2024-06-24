@@ -1,0 +1,781 @@
+{
+	"info": {
+		"_postman_id": "2b0ede61-d908-4a57-b869-1ff0c9dac5b3",
+		"name": "Press Zero Collection Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30185551"
+	},
+	"item": [
+		{
+			"name": "Authorize APIs",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\"api_key\":\"XjP0Km2soP5d2m4sXi==\",\"api_secret\":\":-Pr3ssZ3r0-Ap1\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://presszero-testing.eastus.cloudapp.azure.com/en-us/api/press/zero/authorize",
+					"protocol": "https",
+					"host": [
+						"presszero-testing",
+						"eastus",
+						"cloudapp",
+						"azure",
+						"com"
+					],
+					"path": [
+						"en-us",
+						"api",
+						"press",
+						"zero",
+						"authorize"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Companies",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 1fbbafefe1fca393a4b56caf93bc2ca5427cb875",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://presszero-qa.eastus.cloudapp.azure.com/en-us/api/press/zero/models/company?page=1&limit=500",
+					"protocol": "https",
+					"host": [
+						"presszero-qa",
+						"eastus",
+						"cloudapp",
+						"azure",
+						"com"
+					],
+					"path": [
+						"en-us",
+						"api",
+						"press",
+						"zero",
+						"models",
+						"company"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "500"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "send notification",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 1fbbafefe1fca393a4b56caf93bc2ca5427cb875",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "// {\r\n//     \"title\": \"A Selma /-/ 154792 /=/ survey\",\r\n//     \"message\": \"Good day \",\r\n//     \"topic\": \"customer-app-44\"\r\n// }\r\n\r\n\r\n{\r\n    \"title\": \"Adaire - Rate Us\",\r\n    \"message\": \"Please Rate our Customer Service to help us become better.\",\r\n    \"topic\": \"customer-app-42\",\r\n    \"data\": {\"isSurvey\": \"true\",\"companyId\":\"154784\", \"userId\": \"42\"}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://us-central1-press-zero.cloudfunctions.net/sendNotification",
+					"protocol": "https",
+					"host": [
+						"us-central1-press-zero",
+						"cloudfunctions",
+						"net"
+					],
+					"path": [
+						"sendNotification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "send otp",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 1fbbafefe1fca393a4b56caf93bc2ca5427cb875",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n      \"phoneNumber\": phoneNumber,\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://presszero-testing.eastus.cloudapp.azure.com/en-us/api/press/zero/send/sms/otp",
+					"protocol": "https",
+					"host": [
+						"presszero-testing",
+						"eastus",
+						"cloudapp",
+						"azure",
+						"com"
+					],
+					"path": [
+						"en-us",
+						"api",
+						"press",
+						"zero",
+						"send",
+						"sms",
+						"otp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verifiy OTP",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 1fbbafefe1fca393a4b56caf93bc2ca5427cb875",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n      \"phoneNumber\": phoneNumber,\r\n      \"verificationCode\": otp,\r\n    ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://presszero-testing.eastus.cloudapp.azure.com/en-us/api/press/zero/sms/verification",
+					"protocol": "https",
+					"host": [
+						"presszero-testing",
+						"eastus",
+						"cloudapp",
+						"azure",
+						"com"
+					],
+					"path": [
+						"en-us",
+						"api",
+						"press",
+						"zero",
+						"sms",
+						"verification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Frequently Contacted Companies",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n      \"userId\": userId,\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://presszero-testing.eastus.cloudapp.azure.com/en-us/api/press/zero/frequent/contact/customers",
+					"protocol": "https",
+					"host": [
+						"presszero-testing",
+						"eastus",
+						"cloudapp",
+						"azure",
+						"com"
+					],
+					"path": [
+						"en-us",
+						"api",
+						"press",
+						"zero",
+						"frequent",
+						"contact",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n      \"api_key\": \"XjP0Km2soP5d2m4sXi==\",\r\n      \"api_secret\": \":-Pr3ssZ3r0-Ap1\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://presszero-testing.eastus.cloudapp.azure.com/en-us/api/press/zero/authorize",
+					"protocol": "https",
+					"host": [
+						"presszero-testing",
+						"eastus",
+						"cloudapp",
+						"azure",
+						"com"
+					],
+					"path": [
+						"en-us",
+						"api",
+						"press",
+						"zero",
+						"authorize"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "App Feedback",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n      \"userId\": userId,\r\n      \"rating\": rating,\r\n      \"message\": message\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://presszero-testing.eastus.cloudapp.azure.com/en-us/api/press/zero/models/feedback",
+					"protocol": "https",
+					"host": [
+						"presszero-testing",
+						"eastus",
+						"cloudapp",
+						"azure",
+						"com"
+					],
+					"path": [
+						"en-us",
+						"api",
+						"press",
+						"zero",
+						"models",
+						"feedback"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Instant Chat",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n      \"filters\": {\"userId\": user.id, \"companyId\": companyID}\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://presszero-testing.eastus.cloudapp.azure.com/en-us/api/press/zero/filter/instantChat",
+					"protocol": "https",
+					"host": [
+						"presszero-testing",
+						"eastus",
+						"cloudapp",
+						"azure",
+						"com"
+					],
+					"path": [
+						"en-us",
+						"api",
+						"press",
+						"zero",
+						"filter",
+						"instantChat"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Chat List",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"userId\": user.id}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://presszero-testing.eastus.cloudapp.azure.com/en-us/api/press/zero/company/chats",
+					"protocol": "https",
+					"host": [
+						"presszero-testing",
+						"eastus",
+						"cloudapp",
+						"azure",
+						"com"
+					],
+					"path": [
+						"en-us",
+						"api",
+						"press",
+						"zero",
+						"company",
+						"chats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Archived Chat List",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"userId\": user.id}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://presszero-testing.eastus.cloudapp.azure.com/en-us/api/press/zero/archived/chats",
+					"protocol": "https",
+					"host": [
+						"presszero-testing",
+						"eastus",
+						"cloudapp",
+						"azure",
+						"com"
+					],
+					"path": [
+						"en-us",
+						"api",
+						"press",
+						"zero",
+						"archived",
+						"chats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": " Archive Chat",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n      \"userId\": user.id,\r\n      \"companyId\": companyId,\r\n      \"status\": \"archived\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://presszero-testing.eastus.cloudapp.azure.com/en-us/api/press/zero/manage/chats",
+					"protocol": "https",
+					"host": [
+						"presszero-testing",
+						"eastus",
+						"cloudapp",
+						"azure",
+						"com"
+					],
+					"path": [
+						"en-us",
+						"api",
+						"press",
+						"zero",
+						"manage",
+						"chats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Request Company Through Company Card",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n      \"userId\": user.id,\r\n      \"categoryId\": 659193,\r\n      \"companyId\": companyId,\r\n      \"businessName\": companyName,\r\n      \"email\": email,\r\n      \"phoneNumber\": phoneNumber,\r\n      \"websiteUri\": webUrl,\r\n      \"userRequested\": true\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://presszero-testing.eastus.cloudapp.azure.com/en-us/api/press/zero/models/userRequestedCompanies",
+					"protocol": "https",
+					"host": [
+						"presszero-testing",
+						"eastus",
+						"cloudapp",
+						"azure",
+						"com"
+					],
+					"path": [
+						"en-us",
+						"api",
+						"press",
+						"zero",
+						"models",
+						"userRequestedCompanies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filter Requested Companies",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n      \"filters\": {\"userId\": user.id, \"companyId\": companyId}\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://presszero-testing.eastus.cloudapp.azure.com/en-us/api/press/zero/filter/userRequestedCompanies",
+					"protocol": "https",
+					"host": [
+						"presszero-testing",
+						"eastus",
+						"cloudapp",
+						"azure",
+						"com"
+					],
+					"path": [
+						"en-us",
+						"api",
+						"press",
+						"zero",
+						"filter",
+						"userRequestedCompanies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Email Verification",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n      'email': email,\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://presszero-testing.eastus.cloudapp.azure.com/en-us/api/press/zero/email/verification",
+					"protocol": "https",
+					"host": [
+						"presszero-testing",
+						"eastus",
+						"cloudapp",
+						"azure",
+						"com"
+					],
+					"path": [
+						"en-us",
+						"api",
+						"press",
+						"zero",
+						"email",
+						"verification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Chat Attachments",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n      \"companyId\": companyId,\r\n      \"userId\": user.id,\r\n      \"base64Files\": [fileImage],\r\n      \"caption\": captionMessage,\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://presszero-testing.eastus.cloudapp.azure.com/en-us/api/press/zero/archived/files",
+					"protocol": "https",
+					"host": [
+						"presszero-testing",
+						"eastus",
+						"cloudapp",
+						"azure",
+						"com"
+					],
+					"path": [
+						"en-us",
+						"api",
+						"press",
+						"zero",
+						"archived",
+						"files"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subscribe to Topic",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n      \"token\": token,\r\n      \"topic\": \"customer-app-${user.id}\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://us-central1-press-zero.cloudfunctions.net/subscribeToTopic",
+					"protocol": "https",
+					"host": [
+						"us-central1-press-zero",
+						"cloudfunctions",
+						"net"
+					],
+					"path": [
+						"subscribeToTopic"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UnSubscribe to Topic",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n      \"token\": token,\r\n      \"topic\": \"customer-app-${user.id}\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://us-central1-press-zero.cloudfunctions.net/unsubscribeToTopic",
+					"protocol": "https",
+					"host": [
+						"us-central1-press-zero",
+						"cloudfunctions",
+						"net"
+					],
+					"path": [
+						"unsubscribeToTopic"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Social Links",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n      \"filters\": {\"companyId\": companyId}\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://presszero-testing.eastus.cloudapp.azure.com/en-us/api/press/zero/models/socialLinks",
+					"protocol": "https",
+					"host": [
+						"presszero-testing",
+						"eastus",
+						"cloudapp",
+						"azure",
+						"com"
+					],
+					"path": [
+						"en-us",
+						"api",
+						"press",
+						"zero",
+						"models",
+						"socialLinks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Survey After Chat",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n      \"filters\": {\"companyId\": companyId}\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://presszero-testing.eastus.cloudapp.azure.com/en-us/api/press/zero/admin/survey/after/chat",
+					"protocol": "https",
+					"host": [
+						"presszero-testing",
+						"eastus",
+						"cloudapp",
+						"azure",
+						"com"
+					],
+					"path": [
+						"en-us",
+						"api",
+						"press",
+						"zero",
+						"admin",
+						"survey",
+						"after",
+						"chat"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://presszero-qa.eastus.cloudapp.azure.com/en-us/api/press/zero/models/users",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 1fbbafefe1fca393a4b56caf93bc2ca5427cb875",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://presszero-qa.eastus.cloudapp.azure.com/en-us/api/press/zero/models/users",
+					"protocol": "https",
+					"host": [
+						"presszero-qa",
+						"eastus",
+						"cloudapp",
+						"azure",
+						"com"
+					],
+					"path": [
+						"en-us",
+						"api",
+						"press",
+						"zero",
+						"models",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
